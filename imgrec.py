@@ -41,7 +41,10 @@ def index():
 @application.route('/about')
 def about():
    return render_template("about.html")
-    
+
+def sound():
+   return url_for("static", filename = "output.wav")
+   
 #classify image, save data to database and display image and results
 @application.route('/', methods=['POST'])
 def classify():      
@@ -68,10 +71,10 @@ def classify():
             prefix = prefix + "n "
          else:
             prefix = prefix + " "         
-         with open(join(dirname(__file__), './resources/output.wav'), 'wb') as audio_file:
+         with open(join(dirname(__file__), './static/resources/output.wav'), 'wb') as audio_file:
             audio_file.write(ts.synthesize(prefix + atxt, accept='audio/wav', voice="en-US_AllisonVoice"))
       else:
-         classes = '\n' + "Invalid image url"
+         atxt = '\n' + "Invalid image url"
          img_url=""         
          """
          # Check that email does not already exist (not a great query, but works)
