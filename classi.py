@@ -1,13 +1,15 @@
 """
 * 
-* imgrec.py
+* classi.py
 * Author:
 * Renato Jensen Filho
 * 2016-10-04
 * 
 """
-#external libraries
+
+#imports
 from flask import Flask, render_template, request
+#from flask.sqlalchemy import SQLAlchemy
 from watson_developer_cloud import VisualRecognitionV3 as vr3, TextToSpeechV1 as ts1
 from os import environ, remove, listdir
 from os.path import join, dirname
@@ -15,6 +17,7 @@ from datetime import datetime
 from time import time
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
+from db import Database
 
 #cleans previosly generated .wav files in resources dir
 def clean_speech_files():   
@@ -41,11 +44,20 @@ if ts1_user == None or ts1_pswd == None:
    print("ERROR: Missing credentials for Watson's TextToSpeechV1")
    quit()
 
+#checks for ElephantSQL database URL
+url = environ["CLASSIPY_DB_URL"]
+if url == None:      
+   print("ERROR: Missing Database URL")
+   quit()
+
 #instances a VisualRecognitionV3 object using the api key      
 vr = vr3(api_key=vr3_key, version='2016-05-20')
 
 #instances a TextToSpeechV1 object using the credentials     
 ts = ts1(username=ts1_user, password=ts1_pswd)
+
+#instances database
+db = Database(url)
 
 #creates a scheduler to clean the resources every 30s, avoiding server overload
 scheduler = BackgroundScheduler()
@@ -69,7 +81,7 @@ application=Flask(__name__)
 def index():
    if not "intro.wav" in listdir("./static/resources/"):
       with open(join(dirname(__file__), "./static/resources/intro.wav"), 'wb') as audio_file:
-         audio_file.write(ts.synthesize("Input an image URL and click the classify button!", accept='audio/wav', voice="en-US_AllisonVoice"))
+         audio_file.write(ts.synthesize("Input an image URL and click the classipy button!", accept='audio/wav', voice="en-US_AllisonVoice"))
          
    return render_template("index.html", label="", img="", audio_url="intro.wav")
 
@@ -80,9 +92,7 @@ def about():
 #classify image, save data to database and display image and results
 @application.route('/', methods=['POST'])
 def classify():
-   global dt
-   global vr   
-   global ts
+   global dt ,vr,ts, db
    #updates dt variable (date and time)   
    dt = str(datetime.now())[:-5].replace(' ', '_').replace(':', '').replace('.', '')
    aurl = "output" + dt + ".wav"      
