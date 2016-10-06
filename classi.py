@@ -25,6 +25,10 @@ def clean_speech_files():
    for f in filelist:
       remove("./static/resources/" + str(f))
       
+def get_images():
+   global db
+   return db.view()
+      
 #
 # Initialization
 #
@@ -45,7 +49,7 @@ if ts1_user == None or ts1_pswd == None:
    quit()
 
 #checks for ElephantSQL database URL
-url = environ["CLASSIPY_DB_URL"]
+url = environ.get("CLASSIPY_DB_URL")
 if url == None:      
    print("ERROR: Missing Database URL")
    quit()
@@ -68,8 +72,7 @@ scheduler.add_job(
     id='cleaning_job',
     name='Cleans previosly generated .wav files in resources dir',
     replace_existing=True)
-
-
+    
 #
 # Flask routines
 #
@@ -83,7 +86,7 @@ def index():
       with open(join(dirname(__file__), "./static/resources/intro.wav"), 'wb') as audio_file:
          audio_file.write(ts.synthesize("Input an image URL and click the classipy button!", accept='audio/wav', voice="en-US_AllisonVoice"))
          
-   return render_template("index.html", label="", img="", audio_url="intro.wav")
+   return render_template("index.html", label="", img="", audio_url="intro.wav", db_data=get_images())
 
 @application.route('/about')
 def about():
@@ -92,7 +95,7 @@ def about():
 #classify image, save data to database and display image and results
 @application.route('/', methods=['POST'])
 def classify():
-   global dt ,vr,ts, db
+   global dt ,vr,ts,db
    #updates dt variable (date and time)   
    dt = str(datetime.now())[:-5].replace(' ', '_').replace(':', '').replace('.', '')
    aurl = "output" + dt + ".wav"      
@@ -107,15 +110,11 @@ def classify():
          try:
             for data in img_data['images'][0]['classifiers'][0]['classes']:            
                #prepares the text to speech string            
-               atxt = atxt + str(int(data['score']*100)) + '% chance the image is related to a'
-               if data['class'][0] == 'a' or data['class'][0] == 'e' or data['class'][0] == 'i' or data['class'][0] == 'o' or data['class'][0] == 'u':
-                  atxt = atxt + 'n '
-               else:
-                  atxt = atxt + ' '
-               atxt = atxt + data['class'] + ', '            
+               atxt = atxt + str(int(data['score']*100)) + '% chance the image is related to: ' + data['class'] + ', '
             #remove the last ', '
             atxt = atxt[:-2]                     
-            prefix = "There is "            
+            prefix = "There is "
+            db.insert(img_url, atxt.replace(" chance the image is related to:", ""))
          except KeyError as err:
             atxt = '\n' + "Image not supported. Try classifying another image."
             img_url=""
@@ -124,11 +123,11 @@ def classify():
          atxt = '\n' + "Invalid image URL"
          img_url=""         
        
-      #generates audio response (each audio is generated with a different name to avoid browser cache problems)
+      #generates audio response (each audio is generated with a different filename (datetime based) to avoid browser cache problems)
       with open(join(dirname(__file__), './static/resources/output' + dt + '.wav'), 'wb') as audio_file:      
          audio_file.write(ts.synthesize(prefix + atxt.replace('\n', ''), accept='audio/wav', voice="en-US_AllisonVoice"))   
 
-   return render_template('index.html', label='\n'+atxt.replace(", ", '\n'), img=img_url, audio_url=aurl)           
-      
+   return render_template('index.html', label='\n'+atxt.replace(", ", '\n'), img=img_url, audio_url=aurl, db_data=get_images())           
+  
 if __name__=="__main__":
    application.run(debug=True)

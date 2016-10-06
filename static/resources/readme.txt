@@ -1,1 +1,1 @@
-Resources go here.
+Speech files are stored here.

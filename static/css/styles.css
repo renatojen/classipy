@@ -31,4 +31,7 @@ h1 {
 .v-center {
   margin-top:7%;
 }
-  
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #909097;
+}  
