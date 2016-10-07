@@ -10,7 +10,7 @@
 #imports
 from flask import Flask, render_template, request
 from watson_developer_cloud import VisualRecognitionV3 as vr3, TextToSpeechV1 as ts1
-from os import environ, remove, listdir
+from os import environ, remove, listdir, getenv
 from os.path import join, dirname
 from datetime import datetime
 from time import time
@@ -130,7 +130,7 @@ def classify():
 
 if __name__=="__main__":
    # Bind to PORT/HOST if defined, otherwise default to 5050/localhost.
-   PORT = int(environ.get('VCAP_APP_PORT', '5000'))
-   HOST = str(environ.get('VCAP_APP_HOST', 'localhost'))
+   PORT = int(os.getenv('VCAP_APP_PORT', '5000'))
+   HOST = str(os.getenv('VCAP_APP_HOST', 'localhost'))
    application.run(host=HOST, port=PORT)
    #application.run(debug=True)
