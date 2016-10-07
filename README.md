@@ -1,2 +1,2 @@
 # Classipy
-A Watson based Python text to speech image recognizer
+A Watson based Python text to speech image recognizer web application
