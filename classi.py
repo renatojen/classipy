@@ -68,8 +68,8 @@ scheduler.start()
 scheduler.add_job(
     func=clean_speech_files,
     trigger=IntervalTrigger(seconds=30),
-    id='cleaning_job',
-    name='Cleans previosly generated .wav files in resources dir',
+    id='speech_job',
+    name='Speech cleaner',
     replace_existing=True)
     
 #
@@ -91,7 +91,7 @@ def index():
 def about():
    return render_template("about.html")
    
-#classify image, save data to database and display image and results
+#classify image, display image and classification results, generate results audio and save image data to database
 @application.route('/', methods=['POST'])
 def classify():
    global dt ,vr,ts,db
@@ -126,7 +126,7 @@ def classify():
       with open(join(dirname(__file__), './static/resources/output' + dt + '.wav'), 'wb') as audio_file:      
          audio_file.write(ts.synthesize(prefix + atxt.replace('\n', ''), accept='audio/wav', voice="en-US_AllisonVoice"))   
 
-   return render_template('index.html', label='\n'+atxt.replace(", ", '\n'), img=img_url, audio_url=aurl, db_data=get_images())           
+   return render_template('index.html', label='\n' + atxt.replace(', ', '\n'), img=img_url, audio_url=aurl, db_data=get_images())           
 
 if __name__=="__main__":
    # Bind to PORT/HOST if defined, otherwise default to 5050/localhost.

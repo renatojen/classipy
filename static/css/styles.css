@@ -1,19 +1,15 @@
 html,body {
   height:100%;
 }
-
 h1 {
-  font-family: Arial,sans-serif
-  font-size:80px;
+  font-size: 70px;
   color:#DDCCEE;
+  margin-top: 50px;
+  display: block;
 }
-
 .lead {
 	color:#DDCCEE;
 }
-
-
-/* Custom container */
 .container-full {
   margin: 0 auto;
   width: 100%;
@@ -22,16 +18,57 @@ h1 {
   color:#eee;
   overflow:hidden;
 }
-
 .container-full a {
   color:#efefef;
   text-decoration:none;
 }
-
 .v-center {
   margin-top:7%;
 }
-
-.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+table {
+  background-color:#383743;
+  text-align: center;
+  box-shadow: 1px 1px 10px RGBA(0,0,0,0.1);
+}
+table tr th {
+  text-align: center;
+}
+/*
+table tr td:hover {
   background-color: #909097;
-}  
+}
+
+table tr:hover {
+  background-color: #909097;
+}
+table th {
+  background-color:#22212f;
+}
+*/
+.table-hover tbody tr:hover td {
+   background-color: #909097;   
+}
+.table-hover tbody tr:hover th{
+   background-color: #22212f;
+}
+table tr:hover td.photo {
+  background-color: #fff;
+}
+table tr.clickable-row {   
+   cursor: pointer;
+}
+.table-header {
+   background-color: #22212f;
+}
+table tr:hover th.table-header {   
+   background-color: #22212f;   
+}
+.photo {
+  background-color: #fff;
+}
+.replace-image {
+  max-width:380px;
+}
+#github {
+  font-size: 40px;
+}

@@ -8,6 +8,7 @@
 """
 
 import psycopg2
+#import yaml
 from urllib.parse import urlparse, uses_netloc
 
 uses_netloc.append("postgres")
@@ -15,15 +16,20 @@ uses_netloc.append("postgres")
 class Database:
    
    #constructor
-   def __init__(self, db_url):      
+   #def __init__(self, cfg, db_url=""):
+   def __init__(self, db_url):
+      #self.cfg = yaml.safe_load(open("cfg.yml"))
+      #if db_url !="":      
       self.url = urlparse(db_url)
+      #else:
+      #   self.url = urlparse(self.cfg.database['url'])         
       self.conn=psycopg2.connect(database=self.url.path[1:], user=self.url.username, password=self.url.password, host=self.url.hostname, port=self.url.port)
       self.cur=self.conn.cursor()
       self.cur.execute("CREATE TABLE IF NOT EXISTS images (id SERIAL PRIMARY KEY, url TEXT, stats TEXT)")
       self.conn.commit()
       self.conn.close()
    
-   #inserts a new image in images table. If there are more than 10 rows, deletes older rows until there are only 9 rows left (then inserts the 10th row)   
+   #inserts a new row in images table. If there are more than n rows, deletes older rows until there are only n rows left
    def insert(self, url, stats):
       self.conn=psycopg2.connect(database=self.url.path[1:], user=self.url.username, password=self.url.password, host=self.url.hostname, port=self.url.port)      
       self.cur=self.conn.cursor()
@@ -44,7 +50,14 @@ class Database:
       rows=self.cur.fetchall()
       self.conn.close()
       return rows
-
+   
+   #destructor
+   def __del__(self):
+      if self.conn.closed == 0:
+         self.conn.close()
+      
+   #UNUSED
+   """
    def delete(self, id):
       self.conn=psycopg2.connect(database=self.url.path[1:], user=self.url.username, password=self.url.password, host=self.url.hostname, port=self.url.port)
       self.cur=self.conn.cursor()
@@ -58,8 +71,4 @@ class Database:
       self.cur.execute("UPDATE images SET url=%s, stats=%s WHERE id=%s", (url,stats,id))
       self.conn.commit()
       self.conn.close()
-
-   #destructor
-   def __del__(self):
-      if self.conn.closed == 0:
-         self.conn.close()
+   """

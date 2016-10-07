@@ -5,118 +5,62 @@
     <meta charset="utf-8">
     <title>Classipy! A python text to speech image recognizer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!--[if lt IE 9]>
       <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+    <link href="static/css/styles.css" rel="stylesheet">
 </head>
 
 <body>    
     <div class="container-full">
         <div class="row">
-            <div class="col-lg-12 text-center">
-                <h1>Classipy!</h1>
+            <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 text-center">
+            	<h1>Classipy!</h1>
                 <p class="lead">A python text to speech image recognizer</p>                
-                <form class="col-lg-12" action="{{url_for('classify')}}" method="POST">
-                    <div class="row" style="max-width:380px;text-align:center;margin:0 auto;font-size:12pt;">                        
-                        <audio controls="controls" preload="none" hidden="true" autoplay>                       
-                            <source src="/static/resources/{{audio_url}}" type="audio/wav">
-                            Your browser does not support the audio element.
-                        </audio>
-                        <br>
-                        <img src="{{img}}" style="max-width:380px;">                        
-                    </div>                                       
+                <form action="{{url_for('classify')}}" method="POST" id="classiform">                  
+                    <audio controls="controls" preload="none" hidden="true" autoplay>                       
+                        <source src="/static/resources/{{audio_url}}" type="audio/wav">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <br>
+                    <img class="replace-image" src="{{img}}">
                     <div class="row">
-                        <div style="width:380px;text-align:center;margin:0 auto;font-size:12pt;max-width:380px;white-space:pre-wrap;">
+                        <div style="white-space: pre-line;">
                            {{label}}
                         </div>
                      </div>
                      <br>
-                    <div class="input-group" style="width:380px;text-align:center;margin:0 auto;">
-                        <input class="form-control input-lg" title="Enter image url" placeholder="Image url (.jpg, .png)" type="text" name="img_url">
-                        <span class="input-group-btn"><button class="btn btn-lg btn-primary" type="submit">Classipy!</button></span>
+                     <br>
+                    <div class="input-group">
+                        <input class="form-control input-lg" title="Enter image url" placeholder="Image url (.jpg, .png)" type="text" id="img_url" name="img_url">
+                        <span class="input-group-btn"><button class="btn btn-lg btn-primary" type="submit" id="bt_submit">Classipy!</button></span>
                     </div>
                     <br>
                     <br>                    
                 </form>
-                <div class="table-responsive" style="width:380px;max-width:380px;text-align:center;margin:0 auto;">                     
-                     <table class="table table-hover table-bordered table-inverse" style="background-color:#383743">
+                <div class="table-responsive" style="margin:0 auto;">                     
+                     <table class="table table-hover table-bordered table-inverse">
                          <tr>
-                             <th colspan="2" style="background-color:#22212f;text-align:center;">Last classipyed images</th>                             
-                         </tr>
-                         {% for row in db_data %}                             
-                         <tr>
-                             <td style="background-color:#ffffff;max-width:190px;word-break:break-all;vertical-align:middle;"><img src="{{row[1]}}" style="max-height:50px;"></td>
-                             <td style="color:#ffffff;max-width:190px;white-space:pre-wrap;vertical-align:middle;font-size:10pt;">{{row[2]}}</td>
+                             <th class="table-header" colspan="2">Last classipyed images</th>                             
                          </tr> 
-                         {% endfor %}
+                         {% for row in db_data %}                         
+                             <tr class="clickable-row">
+                                 <td class="photo" style="padding: 0px 0px 0px 0px;"><img src="{{row[1]}}" style="max-height:50px;"></td>
+                                 <td style="white-space:pre-wrap;vertical-align:middle;font-size:10pt;">{{row[2]}}</td>
+                             </tr>
+                         {% endfor %}  
                       </table>
+                    </div>
+                    <a href="https://github.com/renatojen/classipy" id="github" target="_blank"><i class="fa fa-github"></i></a>
+        			<p align="center">&copy; 2016 Renato Jensen Filho </p>     
                 </div>                
             </div>
-        </div>
-        <!-- /row -->
-
-        <!-- /row -->
-        <div class="row">
-            <div class="col-lg-12 text-center v-center" style="font-size:39pt;">
-                <a href="https://github.com/renatojen/classipy"><i class="icon-github"></i></a>
-            </div>
-        </div>
-        
-        <br>
-        <p align="center">&copy; 2016 Renato Jensen Filho </p>       
+        </div>  
     </div>
-    <!-- /container full -->
-    <!--
-    <div class="container">
-        <hr>
-        <div class="row">
-            <div class="col-md-4 ">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3>Hello.</h3>
-                    </div>
-                    <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. Aliquam in felis sit amet augue.
-                    </div>
-                </div>
-            </div>
-         <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3>Hello.</h3>
-                    </div>
-                    <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. Aliquam in felis sit amet augue.
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3>Hello.</h3>
-                    </div>
-                    <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. Aliquam in felis sit amet augue.
-                    </div>
-                </div>
-            </div>
-        </div> 
-
-        <div class="row">
-            <div class="col-lg-12">
-                <br>
-                <br>
-                <p class="pull-right"><a href="http://www.bootply.com">Template from Bootply</a> &nbsp; Copyright 2014 ACME<sup>TM</sup> Brand.</p>
-                <br>
-                <br>
-            </div>
-        </div>
-    </div>
--->
-    <!-- script references -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="static/js/scripts.js"></script>
 </body>
-
 </html>
