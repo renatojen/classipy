@@ -25,10 +25,9 @@
                     <div class="row">
                         <div style="white-space: pre-line;">
                            {{label}}
-                        </div>
-                        <br>
-                        <audio controls="controls" preload="none" autoplay>                       
-                            <source src="/static/resources/{{audio_url}}" type="audio/wav">
+                        </div>                        
+                        <audio id="speech" controls="controls" hidden="true" preload="auto">                       
+                            <source src="/static/resources/{{audio_url}}" type="audio/ogg">
                             Your browser does not support the audio element.
                         </audio>                        
                      </div>

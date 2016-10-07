@@ -4,3 +4,7 @@ jQuery(document).ready(function($) {
       $("#bt_submit").trigger('click');        	
     });
 });
+
+jQuery(document).ready(function($) {
+   $("#speech").trigger('play');        	    
+});
