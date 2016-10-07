@@ -9,7 +9,6 @@
 
 #imports
 from flask import Flask, render_template, request
-#from flask.sqlalchemy import SQLAlchemy
 from watson_developer_cloud import VisualRecognitionV3 as vr3, TextToSpeechV1 as ts1
 from os import environ, remove, listdir
 from os.path import join, dirname
@@ -84,7 +83,7 @@ application=Flask(__name__)
 def index():
    if not "intro.wav" in listdir("./static/resources/"):
       with open(join(dirname(__file__), "./static/resources/intro.wav"), 'wb') as audio_file:
-         audio_file.write(ts.synthesize("Input an image URL and click the classipy button!", accept='audio/wav', voice="en-US_AllisonVoice"))
+         audio_file.write(ts.synthesize("Input an image URL and click the classi pie button!", accept='audio/wav', voice="en-US_AllisonVoice"))
          
    return render_template("index.html", label="", img="", audio_url="intro.wav", db_data=get_images())
 
@@ -128,6 +127,10 @@ def classify():
          audio_file.write(ts.synthesize(prefix + atxt.replace('\n', ''), accept='audio/wav', voice="en-US_AllisonVoice"))   
 
    return render_template('index.html', label='\n'+atxt.replace(", ", '\n'), img=img_url, audio_url=aurl, db_data=get_images())           
-  
+
 if __name__=="__main__":
-   application.run(debug=True)
+   # Bind to PORT/HOST if defined, otherwise default to 5050/localhost.
+   PORT = int(environ.get('VCAP_APP_PORT', '5000'))
+   HOST = str(environ.get('VCAP_APP_HOST', 'localhost'))
+   application.run(host=HOST, port=PORT)
+   #application.run(debug=True)

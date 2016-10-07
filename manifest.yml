@@ -1,0 +1,12 @@
+applications:
+- path: .
+  memory: 128M
+  instances: 1
+  domain: mybluemix.net
+  name: classipy
+  host: classipy
+  disk_quota: 1024M
+  services:
+  - text_to_speech-2k
+  - ElephantSQL-3w
+  buildpack: python_buildpack
