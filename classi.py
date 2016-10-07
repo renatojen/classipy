@@ -18,9 +18,9 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 from db import Database
 
-#cleans previosly generated .wav files in resources dir
+#cleans previosly generated .ogg files in resources dir
 def clean_speech_files():   
-   filelist = [ f for f in listdir("./static/resources") if f.endswith(".wav") and len(f) > 9]
+   filelist = [ f for f in listdir("./static/resources") if f.endswith(".ogg") and len(f) > 9]
    for f in filelist:
       remove("./static/resources/" + str(f))
       
@@ -81,11 +81,11 @@ application=Flask(__name__)
 
 @application.route('/')
 def index():
-   if not "intro.wav" in listdir("./static/resources/"):
-      with open(join(dirname(__file__), "./static/resources/intro.wav"), 'wb') as audio_file:
-         audio_file.write(ts.synthesize("Input an image URL and click the classi pie button!", accept='audio/wav', voice="en-US_AllisonVoice"))
+   if not "intro.ogg" in listdir("./static/resources/"):
+      with open(join(dirname(__file__), "./static/resources/intro.ogg"), 'wb') as audio_file:
+         audio_file.write(ts.synthesize("Input an image URL and click the classi pie button!", accept='audio/ogg;codecs=opus', voice="en-US_AllisonVoice"))
          
-   return render_template("index.html", label="", img="", audio_url="intro.wav", db_data=get_images())
+   return render_template("index.html", label="", img="", audio_url="intro.ogg", db_data=get_images())
 
 @application.route('/about')
 def about():
@@ -97,7 +97,7 @@ def classify():
    global dt ,vr,ts,db
    #updates dt variable (date and time)   
    dt = str(datetime.now())[:-5].replace(' ', '_').replace(':', '').replace('.', '')
-   aurl = "output" + dt + ".wav"      
+   aurl = "output" + dt + ".ogg"      
    prefix = ""
    atxt = ""
    img_url = ""
@@ -123,8 +123,8 @@ def classify():
          img_url=""         
        
       #generates audio response (each audio is generated with a different filename (datetime based) to avoid browser cache problems)
-      with open(join(dirname(__file__), './static/resources/output' + dt + '.wav'), 'wb') as audio_file:      
-         audio_file.write(ts.synthesize(prefix + atxt.replace('\n', ''), accept='audio/wav', voice="en-US_AllisonVoice"))   
+      with open(join(dirname(__file__), './static/resources/output' + dt + '.ogg'), 'wb') as audio_file:      
+         audio_file.write(ts.synthesize(prefix + atxt.replace('\n', ''), accept='audio/ogg;codecs=opus', voice="en-US_AllisonVoice"))   
 
    return render_template('index.html', label='\n' + atxt.replace(', ', '\n'), img=img_url, audio_url=aurl, db_data=get_images())           
 

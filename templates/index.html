@@ -20,16 +20,17 @@
             	<h1>Classipy!</h1>
                 <p class="lead">A python text to speech image recognizer</p>                
                 <form action="{{url_for('classify')}}" method="POST" id="classiform">                  
-                    <audio controls="controls" preload="none" hidden="true" autoplay>                       
-                        <source src="/static/resources/{{audio_url}}" type="audio/wav">
-                        Your browser does not support the audio element.
-                    </audio>
                     <br>
                     <img class="replace-image" src="{{img}}">
                     <div class="row">
                         <div style="white-space: pre-line;">
                            {{label}}
                         </div>
+                        <br>
+                        <audio controls="controls" preload="none" autoplay>                       
+                            <source src="/static/resources/{{audio_url}}" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>                        
                      </div>
                      <br>
                      <br>

@@ -4,3 +4,4 @@ clean/*
 __pycache__/*
 env.txt
 manifest.yml
+*.ogg
