@@ -130,7 +130,7 @@ def classify():
 
 if __name__=="__main__":
    # Bind to PORT/HOST if defined, otherwise default to 5050/localhost.
-   PORT = int(os.getenv('VCAP_APP_PORT', '5000'))
-   HOST = str(os.getenv('VCAP_APP_HOST', 'localhost'))
+   PORT = int(getenv('VCAP_APP_PORT', '5000'))
+   HOST = str(getenv('VCAP_APP_HOST', 'localhost'))
    application.run(host=HOST, port=PORT)
    #application.run(debug=True)
