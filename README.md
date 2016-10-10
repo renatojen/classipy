@@ -132,7 +132,7 @@ To run Classipy locally you will need:
 This command will create a new Flask app and start your application. When your app has started, your console will print that your `Running on http://localhost:5000/ (Press CTRL+C to quit)`.
 
 ## Compatibility
-Classipy is compatible with most of current browsers such as Google Chrome, Mozilla Firefox, Opera, and mobile devices that supports HTML5. There are some known incompatibilities:
+Classipy is compatible with the majority of popular browsers such as Google Chrome, Mozilla Firefox, Opera and mobile devices that supports HTML5. There are some known incompatibilities:
   * Audio does not work in Internet Explorer, Safari and some mobile browsers. Internet Explorer does not support .ogg audio files playback (using the audio tag from HTML5).
   * Most mobile browsers does not autoplay the speech. You have to play it manually.
 
@@ -145,5 +145,9 @@ Classipy is compatible with most of current browsers such as Google Chrome, Mozi
    $ cf env appname
    ```
 
+2. Speech is not being played:
+   * Try reloading the page
+   * If reloading does not work, try another browser. Check the compatibility section
+   
 ## License
 This app is covered by the MIT license. For more information, see LICENSE for license information.

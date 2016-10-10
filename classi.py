@@ -110,8 +110,9 @@ def classify():
    img_url = ""
    if request.method == 'POST':
       img_url = str(request.form['img_url'])
+      img_ext = img_url[-4:].lower()
       #Validation of image file
-      if img_url.endswith(".jpg") or img_url.endswith(".png"):         
+      if img_ext == ".jpg" or img_ext == ".png":         
          #calls VisualRecognitionV3 to classify the image
          img_data = vr.classify(images_url=img_url)         
          try:
