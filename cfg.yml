@@ -1,0 +1,11 @@
+### Classipy Configuration File ###
+
+db:
+   url: #for safety reasons, avoid putting the database url here. Use CLASSIPY_DB_URL environment variable instead.
+   max_rows: 10 #max number of rows the image table can maintain (0 to ignore, default 10)
+   tbl_size: 10 #max number of rows displayed in index.html (o to ignore, default 10). If tbl_size > max_rows, tbl_size = max_rows
+   
+   ts_user: #for safety reasons, avoid putting the TextToSpeechV1 user here. Use WATSON_TS_USER environment variable instead.
+
+app:
+   clean_speech: 30 #interval (in seconds) to execute the clean speeches service (deletes generated .ogg files from /static/resources)
