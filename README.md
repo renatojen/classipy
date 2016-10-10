@@ -1,6 +1,6 @@
 # Classipy
 
-Classipy is a python + flask speech to text image recognizer web app. This application uses IBM Watson Visual Recognition service to identify the contents of an image. The results are displayed and spoken to the user, using IBM Watson Text to Speech service. Classipy displays the image and the image results identified by the application. The image data is stored in a PostgreSQL database.
+Classipy is a python + flask text to speech image recognizer web app. This application uses IBM Watson Visual Recognition service to identify the contents of an image. The results are displayed and spoken to the user, using IBM Watson Text to Speech service. Classipy displays the image and the image results identified by the application. The image data is stored in a PostgreSQL database.
 
 You can see a live version of Classipy here: https://classipy.mybluemix.net/
 
