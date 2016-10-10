@@ -34,6 +34,7 @@ IBM Bluemix services:
 
 * Watson Visual Recognition
 * Watson Text to Speech
+* ElephantSQL (third party, optional)
 
 Database:
 
