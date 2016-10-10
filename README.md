@@ -1,6 +1,6 @@
 # Classipy
 
-Classipy is a python + flask speech to text image recognizer web app. This application uses IBM Watson Visual Recognition service to identify the contents of an image. The results are displayed and spoken to the user, using IBM Watson Text to Speech service. Classipy also stores and displays the image and the image results identified by the application, using ElephantSQL cloud database service.
+Classipy is a python + flask speech to text image recognizer web app. This application uses IBM Watson Visual Recognition service to identify the contents of an image. The results are displayed and spoken to the user, using IBM Watson Text to Speech service. Classipy displays the image and the image results identified by the application. The image data is stored in a database using ElephantSQL cloud database service.
 
 You can see a live version of Classipy here: https://classipy.mybluemix.net/
 
@@ -115,8 +115,7 @@ To run Classipy locally you will need:
   * watson: ts_user: Watson Text to Speech service user
   * watson: vr_api_key: Watson Visual Recognition API key  
 
-2. Install the required dependencies with pip:
-  In Classipy folder, run the following command in a command line:
+2. Install the required dependencies with pip: in Classipy project folder, run the following command in a command line:
   ```
   $ pip install -r requirements.txt
   ```
@@ -131,10 +130,18 @@ To run Classipy locally you will need:
 This command will create a new Flask app and start your application. When your app has started, your console will print that your `Running on http://localhost:5000/ (Press CTRL+C to quit)`.
 
 ## Compatibility
-Classipy is compatible with the majority of current browsers such as Google Chrome, Firefox, Opera, Safari and mobile devices that supports HTML5. There are some known incompatibilities:
-  * Audio does not work in Internet Explorer and some mobile browsers. Internet Explorer does not support .ogg audio files playback (using <audio> from HTML5).
-  * Chrome mobile does not autoplay the speech. You have to play it manually.
+Classipy is compatible with most of current browsers such as Google Chrome, Mozilla Firefox, Opera, and mobile devices that supports HTML5. There are some known incompatibilities:
+  * Audio does not work in Internet Explorer, Safari and some mobile browsers. Internet Explorer does not support .ogg audio files playback (using <audio> from HTML5).
+  * Most mobile browsers does not autoplay the speech. You have to play it manually.
 
+## Troubleshoot
+
+1. Application does not deploy correctly
+   * Check the Bluemix logs
+   * Check if the environment variables are set:
+   ```
+   $ cf env appname
+   ```
 
 ## License
 This app is covered by the MIT license. For more information, see LICENSE for license information.

@@ -95,7 +95,7 @@ def index():
       with open(join(dirname(__file__), "./static/resources/intro.ogg"), 'wb') as audio_file:
          audio_file.write(ts.synthesize("Input an image URL and click the classi pie button!", accept='audio/ogg;codecs=opus', voice="en-US_AllisonVoice"))
          
-   return render_template("index.html", label="", img="", audio_url="intro.ogg", db_data=get_images())
+   return render_template("index.html", label="", img="/static/resources/logo.png", audio_url="intro.ogg", db_data=get_images())
   
 #classify image, display image and classification results, generate audio results and save image data to database
 @application.route('/', methods=['POST'])
@@ -124,11 +124,11 @@ def classify():
             db.insert(img_url, atxt.replace(" chance the image is related to:", ""))
          except KeyError as err:
             atxt = '\n' + "Image not supported. Try classifying another image."
-            img_url=""
+            img_url="/static/resources/logo.png"
             print("ERROR: Invalid dictionary key: " + str(err))                     
       else:
          atxt = '\n' + "Invalid image URL"
-         img_url=""         
+         img_url="/static/resources/logo.png"         
        
       #generates audio response (each audio is generated with a different filename (datetime based) to avoid browser cache problems)
       with open(join(dirname(__file__), './static/resources/output' + dt + '.ogg'), 'wb') as audio_file:      
