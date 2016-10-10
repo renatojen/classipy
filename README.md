@@ -73,7 +73,7 @@ Deploy Steps:
   * watson: ts_user: Watson Text to Speech service user
   * watson: vr_api_key: Watson Visual Recognition API key  
 
-2. Modify cfg.yml and manifest.yml files acordding to your needs.
+2. Modify cfg.yml and manifest.yml files according to your needs.
 
 3. Connect to Bluemix in the command line tool and follow the prompts to log in.
   ```
@@ -120,7 +120,7 @@ To run Classipy locally you will need:
   $ pip install -r requirements.txt
   ```
 
-3. Modify cfg.yml and manifest.yml files acordding to your needs.
+3. Modify cfg.yml and manifest.yml files according to your needs.
 
 4. Run the application:
   ```
