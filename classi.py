@@ -24,17 +24,18 @@ vr = None
 ts = None
 db = None
 
-#cleans previosly generated .ogg files in resources dir
+#cleans previously generated .ogg files in resources dir
 def clean_speech_files():   
    filelist = [ f for f in listdir("./static/resources") if f.endswith(".ogg") and len(f) > 9]
    for f in filelist:
       remove("./static/resources/" + str(f))
-      
+
+#returns a list containing id, img_url and img_classification
 def get_images():
    global db
    return db.view()
    
-# Initialization
+#initialization
 def init():
    global vr,ts,db
    cfg = safe_load(open("cfg.yml"))
@@ -64,12 +65,12 @@ def init():
    #instances a TextToSpeechV1 object using the credentials     
    ts = ts1(username=ts1_user, password=ts1_pswd)
 
-   #initialize database
+   #initializes database
    mrows = cfg['db']['max_rows'] if cfg['db']['max_rows'] != None else 0
    tsize = cfg['db']['tbl_size'] if cfg['db']['tbl_size'] != None else 0
    db = Database(db_url,  mrows,  tsize)
 
-   #creates a scheduler to clean the resources every n, avoiding server overload
+   #creates a scheduler to clean the resources every cfg['app']['clean_speech'] seconds, avoiding running out of disk space
    scheduler = BackgroundScheduler()
    scheduler.start()
    scheduler.add_job(

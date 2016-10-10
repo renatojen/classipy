@@ -1,8 +1,9 @@
 # Classipy
 
-Classipy is a python + flask speech to text image recognizer web app. This application uses IBM Watson Visual Recognition service to identify the contents of an image. The results are displayed and spoken to the user, using IBM Watson Text to Speech service. Classipy displays the image and the image results identified by the application. The image data is stored in a database using ElephantSQL cloud database service.
+Classipy is a python + flask speech to text image recognizer web app. This application uses IBM Watson Visual Recognition service to identify the contents of an image. The results are displayed and spoken to the user, using IBM Watson Text to Speech service. Classipy displays the image and the image results identified by the application. The image data is stored in a PostgreSQL database.
 
 You can see a live version of Classipy here: https://classipy.mybluemix.net/
+This live version uses ElephantSQL database as a service to store data.
 
 ## Requirements
 
@@ -57,7 +58,7 @@ Deploy Steps:
   ```
   $ git clone https://github.com/renatojen/classipy.git
   ```
-  This repository contain all necessary files to deploy Classipy on Bluemix, but you need to set the database URL, Watson's Visual Recognition API key and Watson's Text to Speech credentials before running the application. You can choose between setting them as:
+  This repository contains all necessary files to deploy Classipy on Bluemix, but you need to set the database URL, Watson's Visual Recognition API key and Watson's Text to Speech credentials before running the application. You can choose between setting them as:
 
   Environment Variables (recommended)  
   You can set them editing manifest.yml or through Bluemix Dashboard:
@@ -100,7 +101,7 @@ To run Classipy locally you will need:
   ```
   $ git clone https://github.com/renatojen/classipy.git
   ```
-  This repository contain all necessary files to run Classipy locally, but you need to set the database URL, Watson's Visual Recognition API key and Watson's Text to Speech credentials before running the application. You can choose between setting them as:
+  This repository contains all necessary files to run Classipy locally, but you need to set the database URL, Watson's Visual Recognition API key and Watson's Text to Speech credentials before running the application. You can choose between setting them as:
 
   Environment Variables (recommended)    
   * CLASSIPY_DB_URL= the complete url to your PostgreSQL Database 
@@ -131,12 +132,12 @@ This command will create a new Flask app and start your application. When your a
 
 ## Compatibility
 Classipy is compatible with most of current browsers such as Google Chrome, Mozilla Firefox, Opera, and mobile devices that supports HTML5. There are some known incompatibilities:
-  * Audio does not work in Internet Explorer, Safari and some mobile browsers. Internet Explorer does not support .ogg audio files playback (using <audio> from HTML5).
+  * Audio does not work in Internet Explorer, Safari and some mobile browsers. Internet Explorer does not support .ogg audio files playback (using the audio tag from HTML5).
   * Most mobile browsers does not autoplay the speech. You have to play it manually.
 
 ## Troubleshoot
 
-1. Application does not deploy correctly
+1. Application does not starts after deploy:
    * Check the Bluemix logs
    * Check if the environment variables are set:
    ```
