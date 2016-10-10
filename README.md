@@ -129,7 +129,9 @@ To run Classipy locally you will need:
   $ python classi.py
   ```
   
-This command will create a new Flask app and start your application. When your app has started, your console will print that your `Running on http://localhost:5000/ (Press CTRL+C to quit)`.
+This command will create a new Flask app and start your application. When your app has started, your console will print the following message:
+
+`Running on http://localhost:5000/ (Press CTRL+C to quit)`.
 
 ## Compatibility
 Classipy is compatible with the majority of popular browsers such as Google Chrome, Mozilla Firefox, Opera and mobile devices that supports HTML5. There are some known incompatibilities:
