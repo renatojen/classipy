@@ -10,8 +10,9 @@ applications:
   - text_to_speech-2k
   - ElephantSQL-3w
   buildpack: python_buildpack
-  env:
-    WATSON_VR_API_KEY:
-    WATSON_TS_USER:
-    WATSON_VR_PSWD:
-    CLASSIPY_DB_URL:
+  #UNCOMMENT AND fill the environment variables fields below if you wish to set them through manifest.yml
+  #env:
+  #  WATSON_VR_API_KEY: 
+  #  WATSON_TS_USER: 
+  #  WATSON_VR_PSWD: 
+  #  CLASSIPY_DB_URL: 
