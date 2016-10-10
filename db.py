@@ -17,6 +17,8 @@ class Database:
    #constructor
    def __init__(self, db_url, db_max_rows="10", db_tbl_size="10"):            
       self.url = urlparse(db_url)
+      self.max_rows = db_max_rows if db_max_rows != None else 10
+      self.tbl_size = db_tbl_size if db_tbl_size != None else 10
       self.conn=psycopg2.connect(database=self.url.path[1:], user=self.url.username, password=self.url.password, host=self.url.hostname, port=self.url.port)
       self.cur=self.conn.cursor()
       self.cur.execute("CREATE TABLE IF NOT EXISTS images (id SERIAL PRIMARY KEY, url TEXT, stats TEXT)")

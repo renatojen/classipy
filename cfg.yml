@@ -5,7 +5,10 @@ db:
    max_rows: 10 #max number of rows the image table can maintain (0 to ignore, default 10)
    tbl_size: 10 #max number of rows displayed in index.html (o to ignore, default 10). If tbl_size > max_rows, tbl_size = max_rows
    
+watson:      
+   ts_pswd: #for safety reasons, avoid putting the TextToSpeechV1 password here. Use WATSON_TS_PSWD environment variable instead.
    ts_user: #for safety reasons, avoid putting the TextToSpeechV1 user here. Use WATSON_TS_USER environment variable instead.
+   vr_api_key: #for safety reasons, avoid putting the VisualRecognitionV3 api key here. Use WATSON_VR_API_KEY environment variable instead.
 
 app:
    clean_speech: 30 #interval (in seconds) to execute the clean speeches service (deletes generated .ogg files from /static/resources)

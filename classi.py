@@ -41,16 +41,20 @@ def init():
 
    #validates VisualRecognitionV3 api key
    vr3_key = getenv("WATSON_VR_API_KEY", cfg['watson']['vr_api_key']) #if WATSON_VR_API_KEY is not set, try local cfg to get api key
+   if vr3_key == None or vr3_key == "":
       print("ERROR: Missing api key for Watson's VisualRecognitionV3")
       quit()
    
    #validates TextToSpeechV1 username and password
    ts1_user = getenv("WATSON_TS_USER", cfg['watson']['ts_user'])
    ts1_pswd = getenv("WATSON_TS_PSWD", cfg['watson']['ts_pswd'])
+   if ts1_user == None or ts1_user == "" or ts1_pswd == None or ts1_pswd == "":
       print("ERROR: Missing credentials for Watson's TextToSpeechV1")
       quit()
    
+   #validates PostgreSQL database URL
    db_url = getenv("CLASSIPY_DB_URL", cfg['db']['url'])
+   if db_url == None or db_url == "":   
       print("ERROR: Missing Database URL")
       quit()
       
